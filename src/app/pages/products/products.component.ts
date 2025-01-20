@@ -3,6 +3,8 @@ import { MasterService } from '../../service/master.service';
 import { APIResponseModel, Category, ProductList } from '../../model/product';
 import { map, Observable, Subscription } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { Customer } from '../../model/Customer';
+import { Cart } from '../../model/Cart';
 
 @Component({
   selector: 'app-products',
@@ -17,8 +19,17 @@ export class ProductsComponent implements OnInit {
 
   categoryList$: Observable<Category[]> = new Observable<Category[]>();
   subscriptionList: Subscription[] = [];
+  loggedUserData : Customer = new Customer();
 
   masterService = inject(MasterService)
+
+  constructor() {
+    const isUser = localStorage.getItem("ecom18");
+    if(isUser != null) {
+      const parseObj = JSON.parse(isUser);
+      this.loggedUserData = parseObj;
+    }
+  }
 
   ngOnInit(): void {
     this.loadAllProducts();
@@ -38,6 +49,19 @@ export class ProductsComponent implements OnInit {
       //  this.productList = res.data old way
        this.productList.set(res.data)
     }));
+  }
+
+  onAddToCart(id: number) {
+    const newObj : Cart = new Cart();
+    newObj.ProductId = id;
+    newObj.custId = this.loggedUserData['custId'];
+    this.masterService.addToCart(newObj).subscribe((res:APIResponseModel)=> {
+      if (res.result) {
+        alert("Product added to cart")
+      }else {
+        alert(res.message)
+      }
+    });
   }
 
   ngOnDestroy(): void {

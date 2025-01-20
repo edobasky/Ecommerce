@@ -56,7 +56,7 @@
       <!-- Right elements -->
       <div class="d-flex align-items-center">
           <!-- Icon -->
-           @if (loggedUserData.CustId == 0) {
+           @if (loggedUserData.custId == 0) {
             <button class="btn btn-success btn-sm" (click)="openLoginModal()">Login</button>
             <button class="btn btn-success btn-sm mx-2" (click)="openRegisterModal()">Register</button>
            }@else {

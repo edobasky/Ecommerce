@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponseModel } from '../model/product';
 import { Customer, LoginModel } from '../model/Customer';
+import { Cart } from '../model/Cart';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,10 @@ export class MasterService {
     const url = `${this.apiUrl}Login`;
     return this.http.post<APIResponseModel>(url,obj)
   }
+
+  addToCart(obj: Cart): Observable<APIResponseModel> {
+    const url = `${this.apiUrl}AddToCart`;
+    return this.http.post<APIResponseModel>(url,obj)
+  }
+  // AddToCart
 }
