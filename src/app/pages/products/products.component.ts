@@ -58,6 +58,7 @@ export class ProductsComponent implements OnInit {
     this.masterService.addToCart(newObj).subscribe((res:APIResponseModel)=> {
       if (res.result) {
         alert("Product added to cart")
+        this.masterService.onCartAdded.next(true);
       }else {
         alert(res.message)
       }

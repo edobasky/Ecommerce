@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { APIResponseModel } from '../model/product';
 import { Customer, LoginModel } from '../model/Customer';
 import { Cart } from '../model/Cart';
@@ -11,6 +11,8 @@ import { Cart } from '../model/Cart';
 export class MasterService {
 
   apiUrl : string = 'https://freeapi.miniprojectideas.com/api/BigBasket/';
+onCartAdded: Subject<boolean> = new Subject<boolean>();
+
   constructor(private http: HttpClient) { }
 
   getAllProducts() : Observable<APIResponseModel> {
@@ -41,5 +43,10 @@ export class MasterService {
     const url = `${this.apiUrl}AddToCart`;
     return this.http.post<APIResponseModel>(url,obj)
   }
-  // AddToCart
+  
+  // GetCartProductsByCustomerId?id=2177
+  getCartProductsByCustomerId(loggedUserId : number): Observable<APIResponseModel> {
+    const url = `${this.apiUrl}GetCartProductsByCustomerId?id=${loggedUserId}`;
+    return this.http.get<APIResponseModel>(url)
+  }
 }

@@ -4,6 +4,7 @@ import { Customer, LoginModel } from './model/Customer';
 import { FormsModule } from '@angular/forms';
 import { MasterService } from './service/master.service';
 import { APIResponseModel } from './model/product';
+import { CartData } from './model/Cart';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,15 @@ export class AppComponent implements OnInit {
   registerObj : Customer = new Customer();
   loginObj : LoginModel = new LoginModel();
   loggedUserData  : Customer = new Customer();
+  cartData: CartData [] = []
+
   masterService = inject(MasterService);
 
   @ViewChild("registerModel") registerModel : ElementRef | undefined;
   @ViewChild("loginModel") loginModel : ElementRef | undefined;
+
+  isCartPopupOpen : boolean = false;
+
 
   ngOnInit(): void {
     const isUser = localStorage.getItem('ecom18');
@@ -28,7 +34,26 @@ export class AppComponent implements OnInit {
     if (isUser != null) {
       const parseObj = JSON.parse(isUser);
       this.loggedUserData = parseObj;
+      this.getCartItems();
     }
+
+    this.masterService.onCartAdded.subscribe((res: boolean) => {
+      if (res) {
+        this.getCartItems();
+      }
+    })
+  }
+
+
+  getCartItems() {
+    this.masterService.getCartProductsByCustomerId(this.loggedUserData.custId).subscribe((res: APIResponseModel) => {
+       this.cartData = res.data;
+    })
+  }
+
+  showCartPopup(event : Event) {
+    event.preventDefault(); // prevent default acnhor tage behaviour
+      this.isCartPopupOpen = !this.isCartPopupOpen;
   }
 
   openRegisterModal() {
