@@ -94,7 +94,7 @@
                             <td class="align-middle text-center">{{item.quantity}} pieces</td>
                             <td class="align-middle text-right">${{item.productPrice}}</td>
                             <td class="align-middle text-center">
-                                <a href="#delete" data-toggle="modal" data-title="Delete your product ?">
+                                <a (click)="onRemoveProduct(item.cartId)" data-toggle="modal" data-title="Delete your product ?">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             </td>

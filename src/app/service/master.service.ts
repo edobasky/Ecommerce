@@ -49,4 +49,11 @@ onCartAdded: Subject<boolean> = new Subject<boolean>();
     const url = `${this.apiUrl}GetCartProductsByCustomerId?id=${loggedUserId}`;
     return this.http.get<APIResponseModel>(url)
   }
+
+  deleteProductFromCartById(loggedUserId : number): Observable<APIResponseModel> {
+    const url = `${this.apiUrl}DeleteProductFromCartById?id=${loggedUserId}`;
+    return this.http.get<APIResponseModel>(url)
+  }
+
+  // DeleteProductFromCartById?id=1
 }

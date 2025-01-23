@@ -44,6 +44,17 @@ export class AppComponent implements OnInit {
     })
   }
 
+  onRemoveProduct(cartId : number) {
+   this.masterService.deleteProductFromCartById(cartId).subscribe((res : APIResponseModel) => {
+    if (res.result) {
+      alert("Product removed from cart");
+      this.getCartItems();
+    }else {
+      alert(res.message)
+    }
+   })
+  }
+
 
   getCartItems() {
     this.masterService.getCartProductsByCustomerId(this.loggedUserData.custId).subscribe((res: APIResponseModel) => {
