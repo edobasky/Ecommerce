@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MasterService } from '../../service/master.service';
+import { APIResponseModel } from '../../model/product';
+import { CartData } from '../../model/Cart';
 
 @Component({
   selector: 'app-my-orders',
@@ -7,5 +10,6 @@ import { Component } from '@angular/core';
   styleUrl: './my-orders.component.css'
 })
 export class MyOrdersComponent {
-
+    
+   
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, OnInit, ViewChild, viewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { Customer, LoginModel } from './model/Customer';
 import { FormsModule } from '@angular/forms';
 import { MasterService } from './service/master.service';
@@ -8,7 +8,7 @@ import { CartData } from './model/Cart';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FormsModule],
+  imports: [RouterOutlet,FormsModule,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
